@@ -1,18 +1,17 @@
 package com.mygroup.sbb.question;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.data.domain.Sort;
 import java.util.Optional;
+import com.mygroup.sbb.DataNotFoundException;
+import com.mygroup.sbb.user.SiteUser;
+import java.time.LocalDateTime;
 
+import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Service;
-
-import com.mygroup.sbb.DataNotFoundException;
-import com.mygroup.sbb.user.SiteUser;
 
 import lombok.RequiredArgsConstructor;
 
@@ -52,5 +51,9 @@ public class QuestionService {
         question.setContent(content);
         question.setModifyDate(LocalDateTime.now());
         this.questionRepository.save(question);
+    }
+
+    public void delete(Question question) {
+        this.questionRepository.delete(question);
     }
 }
