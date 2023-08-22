@@ -57,6 +57,17 @@ jobs:
     runs-on: ubuntu-latest
     # label-newproject 라는 이름으로 AWS EC2 가 Runner 를 작동시킬 때 사용했던 그 label
     steps:
+      - name: Docker login
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.REMOTE_IP }}
+          username: ${{ secrets.REMOTE_SSH_ID }}
+          key: ${{ secrets.REMOTE_SSH_KEY }}
+          port: ${{ secrets.REMOTE_SSH_PORT }}
+          script: |
+            whoami
+            docker login ghcr.io --username ${{github.actor }} --password ${{ secrets.GHCR_TOKEN }}
+
       - name: Deploy
         uses: appleboy/ssh-action@master
         with:
