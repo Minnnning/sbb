@@ -59,6 +59,8 @@ jobs:
     steps:
       - name: Docker login
         uses: appleboy/ssh-action@master
+        env: 
+          GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
         with:
           host: ${{ secrets.REMOTE_IP }}
           username: ${{ secrets.REMOTE_SSH_ID }}
@@ -66,7 +68,7 @@ jobs:
           port: ${{ secrets.REMOTE_SSH_PORT }}
           script: |
             whoami
-            docker login ghcr.io --username minnnning --password ${{ secrets.GHCR_TOKEN }}
+            docker login ghcr.io --username minnnning --password ${ GHCR_TOKEN }
 
       - name: Deploy
         uses: appleboy/ssh-action@master
